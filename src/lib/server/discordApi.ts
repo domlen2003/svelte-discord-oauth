@@ -1,5 +1,6 @@
 import type {RequestEvent} from "@sveltejs/kit";
 import {DISCORD_API_URL} from "$env/static/private";
+import type {DiscordUser} from "../types/discord";
 
 export async function authenticateUser(event: RequestEvent): Promise<DiscordUser | null> {
     const token = await getOrRefreshToken(event);
@@ -28,23 +29,4 @@ async function getOrRefreshToken(event: RequestEvent): Promise<string | null> {
     }
 
     return null
-}
-
-export type DiscordUser = {
-    id: string,
-    username: string,
-    discriminator: string,
-    avatar: string,
-    email: string,
-    verified: boolean,
-    flags: number,
-    premium_type: number,
-    public_flags: number,
-    mfa_enabled: boolean,
-    locale: string,
-    accent_color: string,
-    banner_color: string,
-    banner: string,
-    avatar_decoration: string,
-    display_name: string
 }

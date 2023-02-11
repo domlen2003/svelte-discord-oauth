@@ -6,7 +6,7 @@ export const handle: Handle = async ({event, resolve}) => {
     event.locals.user = await authenticateUser(event)
     if (event.url.pathname.startsWith('/dashboard')) {
         if (!event.locals.user) {
-            throw redirect(302, '/')
+            throw redirect(302, '/api/discord/login')
         }
     }
     return resolve(event);

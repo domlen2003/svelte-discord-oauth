@@ -1,20 +1,18 @@
-import {error, redirect} from "@sveltejs/kit";
 import {buildSearchParams, requestDiscordToken, setCookies} from "../discordAuth";
 import type {PageServerLoad} from "./$types";
 
-export const load: PageServerLoad = async ({url, cookies, locals}) => {
-    if (locals.user) {
-        throw redirect(302, '/dashboard')
-    }
+export const load: PageServerLoad = async ({url, cookies, locals}): Promise<{ loggedIn: boolean, error?:string }> => {
+    if (locals.user) return {loggedIn: true}
     // fetch returnCode set in the URL parameters.
     const returnCode = url.searchParams.get('code');
     if (!returnCode) {
-        throw error(400, JSON.stringify({error: 'No code provided.'}))
+        return {loggedIn: false, error: 'No code provided.'}
     }
-    const tokens = await requestDiscordToken(buildSearchParams("identify email guilds", "callback", returnCode));
-    setCookies(tokens, cookies)
-    return {
-        token: tokens.access_token,
-        timeout: tokens.access_valid_until
+    try {
+        const tokens = await requestDiscordToken(buildSearchParams("identify email", "callback", returnCode));
+        setCookies(tokens, cookies)
+        return {loggedIn: true}
+    } catch (e) {
+        return {loggedIn: false, error: e as string}
     }
 }

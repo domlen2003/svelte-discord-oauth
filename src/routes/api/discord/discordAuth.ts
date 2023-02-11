@@ -1,6 +1,5 @@
 import {DISCORD_API_URL, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI} from "$env/static/private";
 import type {Cookies} from "@sveltejs/kit";
-import {error} from "@sveltejs/kit";
 
 const ACCESS_TOKEN_COOKIE = "discord_access_token",
     REFRESH_TOKEN_COOKIE = "discord_refresh_token";
@@ -16,7 +15,7 @@ export const requestDiscordToken = async (searchParams: URLSearchParams): Promis
     const response = await request?.json()
 
     if (response.error) {
-        throw error(500, JSON.stringify({error: response.error}));
+        throw  response.error
     }
 
     // redirect user to front page with cookies set

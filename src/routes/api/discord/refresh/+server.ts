@@ -7,7 +7,7 @@ export const GET: RequestHandler = async ({url, cookies}) => {
     if (!discord_refresh_token) {
         throw error(500, JSON.stringify({error: 'No refresh token found'}))
     }
-    const tokens = await requestDiscordToken(buildSearchParams("identify email guilds", "refresh", discord_refresh_token));
+    const tokens = await requestDiscordToken(buildSearchParams("identify email", "refresh", discord_refresh_token));
     setCookies(tokens, cookies)
     return new Response(
         JSON.stringify({token: tokens.access_token}), {
