@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
-import type {DiscordUser} from "./lib/discordApi";
+import type {DiscordUser} from "./lib/server/discordApi";
 
 declare global {
     namespace App {

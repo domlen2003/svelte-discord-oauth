@@ -2,4 +2,4 @@
     import RedirectPage from "$lib/RedirectPage.svelte";
 </script>
 
-<RedirectPage to="/" />
+<RedirectPage to="/"/>

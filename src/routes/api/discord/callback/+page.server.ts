@@ -1,8 +1,11 @@
-import {error} from "@sveltejs/kit";
+import {error, redirect} from "@sveltejs/kit";
 import {buildSearchParams, requestDiscordToken, setCookies} from "../discordAuth";
 import type {PageServerLoad} from "./$types";
 
-export const load: PageServerLoad = async ({url, cookies}) => {
+export const load: PageServerLoad = async ({url, cookies, locals}) => {
+    if (locals.user) {
+        throw redirect(302, '/dashboard')
+    }
     // fetch returnCode set in the URL parameters.
     const returnCode = url.searchParams.get('code');
     if (!returnCode) {
