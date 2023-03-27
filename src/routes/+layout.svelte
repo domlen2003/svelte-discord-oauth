@@ -1,11 +1,8 @@
 <script lang="ts">
     import "../app.css";
     import Navbar from "$lib/Navbar.svelte";
+    import {navbarItems} from "$lib/data/routeNames";
 
-    const navbarItems: { title: string, href: string }[] = [
-        {href: "/", title: "Home"},
-        {href: "/dashboard", title: "Dashboard"}
-    ]
     export let data;
 </script>
 <Navbar user="{data.user}" items="{navbarItems}"/>
