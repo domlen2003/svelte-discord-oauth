@@ -13,6 +13,7 @@ export const load: PageServerLoad = async ({url, cookies, locals}): Promise<{ lo
         setCookies(tokens, cookies)
         return {loggedIn: true}
     } catch (e) {
-        return {loggedIn: false, error: e as string}
+        console.error(e)
+        return {loggedIn: false, error: "Failed to authenticate with Discord."}
     }
 }
