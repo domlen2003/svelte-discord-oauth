@@ -1,8 +1,13 @@
 <script lang="ts">
     import type {DiscordUser} from "$lib/types/discord.ts";
+    import {page} from "$app/stores";
 
     export let user: DiscordUser | null = null;
-    export let title: string = "Page Title";
+
+    export let items: { title: string, href: string }[] = []
+
+    $: route = $page.route.id;
+    $: title = items.filter(item => item.href === route)[0]?.title ?? "SvelteKit Discord Auth"
 
     function toggleUserMenu() {
         userMenu = !userMenu;
@@ -10,6 +15,7 @@
 
     let userMenu = false;
 </script>
+
 <nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gray-900">
     <div class="container flex flex-wrap items-center justify-between content-center mx-auto">
         <div class="text-green-500">
