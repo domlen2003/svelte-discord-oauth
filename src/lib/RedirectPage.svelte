@@ -19,7 +19,7 @@
     export let delay: number | null;
 
     let now = Date.now();
-    let end = delay ? now + delay * 1000 + 200: now; //200ms buffer so we never show users 0 seconds left
+    let end = delay ? now + delay * 1000 + 200 : now; //200ms buffer so we never show users 0 seconds left
 
     function updateTimer() {
         if (now >= end) {
